@@ -1,19 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="hello.servlet.domain.member.MemberRepository" %>
-<%@ page import="hello.servlet.domain.member.Member" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: PC
-  Date: 2024-03-09
-  Time: 오후 10:56
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--리스트--%>
-<%
-    MemberRepository memberRepository = MemberRepository.getInstance();
-    List<Member> members = memberRepository.findAll();
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -28,15 +15,14 @@
     <th>age</th>
     </thead>
     <tbody>
-    <%
-        for (Member member : members) {
-            out.write(" <tr>");
-            out.write(" <td>" + member.getId() + "</td>");
-            out.write(" <td>" + member.getUsername() + "</td>");
-            out.write(" <td>" + member.getAge() + "</td>");
-            out.write(" </tr>");
-        }
-    %>
+    <jsp:useBean id="members" scope="request" type="java.util.List"/>
+    <c:forEach var="item" items="${members}">
+        <tr>
+            <td>${item.id}</td>
+            <td>${item.username}</td>
+            <td>${item.age}</td>
+        </tr>
+    </c:forEach>
     </tbody>
 </table>
 </body>
